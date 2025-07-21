@@ -1,0 +1,38 @@
+{% include "header.html" %}
+
+<!-- Page Header-->
+<header
+  class="masthead"
+  style="background-image: url('../static/assets/img/about-bg.jpg')"
+>
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="page-heading">
+          <h1>About Me</h1>
+          <span class="subheading">This is what I do.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- Main Content-->
+<main class="mb-4">
+  <div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <p>
+          Clean Blog is a minimalist, full-stack blogging application designed to deliver a clean writing and reading experience. Built using the Flask framework in Python, the app focuses on simplicity, usability, and a clean user interface. The core idea behind Clean Blog is to offer a distraction-free platform where content is central — ideal for writers, developers, or individuals who want to share thoughts, tutorials, and stories in an elegant environment.
+        </p>
+        <p>
+          Functionally, the app supports all essential blogging features: users can view posts, while the admin (first registered user) has access to create new articles, edit existing ones, and delete outdated content. The app uses SQLite as the database via SQLAlchemy ORM, handles authentication through Flask-Login, and renders dynamic pages using Jinja2 templating. The front-end is styled with Bootstrap 5, ensuring a responsive and user-friendly interface across all devices.
+        </p>
+        <p>
+          What makes Clean Blog unique is its balance between simplicity and structure — it avoids unnecessary complexity while still following clean architecture and best practices. It’s a practical tool for showcasing technical skills in full-stack Python development, and also serves as a foundation for future enhancements such as multi-user support, rich text formatting, comments, and category-based navigation. Whether used as a portfolio project, a personal blog, or a base for further development, Clean Blog is built to be clean, functional, and extensible.
+        </p>
+      </div>
+    </div>
+  </div>
+</main>
+
+{% include "footer.html" %}
