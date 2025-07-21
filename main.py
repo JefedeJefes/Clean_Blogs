@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy import Integer, String, Text
 from werkzeug.security import check_password_hash , generate_password_hash
+from sqlalchemy.exc import IntegrityError
 
 
 
@@ -162,9 +163,15 @@ def register():
         password = hashed_password
 
         )
+        try:
+            db.session.add(new_user)
+            db.session.commit()
+        except IntegrityError:
+            db.session.rollback()
+            print("flash triggered")
+            flash("Email address already exist. Please try again with different email id")
+            return redirect(url_for("register"))
 
-        db.session.add(new_user)
-        db.session.commit()
 
         login_user(new_user)
         return redirect(url_for("add_new_post"))
@@ -199,7 +206,7 @@ def login():
 @app.route("/logout")
 def logout():
     logout_user()
-    flash("You have been logged out")
+
     return redirect(url_for("get_all_posts"))
 
 
