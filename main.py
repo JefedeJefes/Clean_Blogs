@@ -32,11 +32,20 @@ class BlogPost(db.Model):
 
 class Users(UserMixin,db.Model):
     id: Mapped[int] = mapped_column(Integer , primary_key=True)
-    username : Mapped[str] = mapped_column(String(50),nullable=True)
+    username : Mapped[str] = mapped_column(String(50),nullable=False)
     email : Mapped[str] = mapped_column(String(30),nullable=True,unique=True)
-    password : Mapped[str] = mapped_column(String,nullable=True)
+    password : Mapped[str] = mapped_column(String,nullable=False)
 
 
+class Contacts(UserMixin,db.Model):
+
+    __tablename__ = "contacts"
+
+    id : Mapped[int] = mapped_column(Integer,primary_key=True)
+    name: Mapped[str] =  mapped_column(String(70),nullable=False)
+    email: Mapped[str] = mapped_column(String(50),nullable=False)
+    phone : Mapped[str] = mapped_column(String(15),nullable=False)
+    message : Mapped[str] = mapped_column(Text(500),nullable=False)
 
 
 with app.app_context():
@@ -143,8 +152,27 @@ def about():
     return render_template("about.html")
 
 
-@app.route("/contact")
+@app.route("/contact",methods=["GET","POST"])
 def contact():
+
+    if request.method =="POST":
+
+        new_contact = Contacts(
+        name = request.form.get("name"),
+        email = request.form.get("email"),
+        phone = request.form.get("phone"),
+        message = request.form.get("message"))
+
+        db.session.add(new_contact)
+        db.session.commit()
+
+        flash("Thanks mate , I will contact you soon")
+        return redirect(url_for("contact"))
+
+
+
+
+
     return render_template("contact.html")
 
 @app.route("/register",methods=["GET","POST"])
