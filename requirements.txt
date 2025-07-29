@@ -9,3 +9,5 @@ flask_sqlalchemy==3.1.1
 SQLAlchemy==2.0.25
 Flask-Bootstrap==3.3.7.1
 gunicorn==23.0.0
+python-dotenv==1.1.1
+flask-mail==0.10.0

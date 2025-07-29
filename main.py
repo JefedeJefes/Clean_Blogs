@@ -5,6 +5,10 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy import Integer, String, Text
 from werkzeug.security import check_password_hash , generate_password_hash
 from sqlalchemy.exc import IntegrityError
+# from dotenv import load_dotenv
+# from flask_mail import Message , Mail
+# import os 
+
 
 
 
@@ -59,7 +63,19 @@ login_manager.login_view = "login"
 def load_user(user_id):
     return db.session.get(Users, int(user_id))  # SQLAlchemy 2.0+ syntax
 
+#initializing flask-mail
 
+
+
+# app.config["MAIL_SERVER"] = os.getenv("MAIL_SERVER")
+# app.config["MAIL_PORT"] = int(os.getenv("MAIL_PORT"))
+# app.config['MAIL_USE_TLS'] = os.getenv("MAIL_USE_TLS") == "True"
+# app.config['MAIL_USE_SSL'] = os.getenv("MAIL_USE_SSL") == "True"
+# app.config["MAIL_USERNAME"] = os.getenv("EMAIL")
+# app.config["MAIL_PASSWORD"] = os.getenv("PASSWORD")
+# app.config["MAIL_DEFAULT_SENDER"] = os.getenv("EMAIL") 
+
+# mail = Mail(app)
 
 
 @app.route('/')
@@ -166,14 +182,39 @@ def contact():
         db.session.add(new_contact)
         db.session.commit()
 
-        flash("Thanks mate , I will contact you soon")
+        # try:
+        #     name = request.form.get("name")
+        #     email = request.form.get("email")
+        #     msg=Message(
+        #         subject="Hello from Clean Blogs",
+        #         recipients=[email],
+        #         body=f"""Hello {name} , \n
+        #         Thanks for contacting Clean Blogs. 
+        #         We have registered your message , we will get back to you shortly.
+        #         \n  Chao!
+                
+        #         Regards,
+        #         Clean Blogs Team,
+        #         """
+                
+        #     )
+
+        # #     mail.send(msg)
+        # #     msg_send=True
+
+        # # except Exception as e:
+        # #     flash("Message saved but failed to send the email ")
+        # #     print("error message",e)
+
+        # # else:
+        # #     flash("Thanks mate , I will contact you soon")
+            
         return redirect(url_for("contact"))
 
-
-
-
-
+    
     return render_template("contact.html")
+
+
 
 @app.route("/register",methods=["GET","POST"])
 def register():
